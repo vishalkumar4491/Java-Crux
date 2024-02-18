@@ -8,7 +8,7 @@ public class O7_IsPrime {
         int n = sc.nextInt();
         int i = 2;
         while(i < n){
-            if(n % 2 == 0){
+            if(n % i == 0){
                 System.out.println("Not Prime");
                 break;
             }
