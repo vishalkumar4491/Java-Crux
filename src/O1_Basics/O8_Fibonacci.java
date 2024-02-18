@@ -1,3 +1,5 @@
+package O1_Basics;
+
 import java.util.Scanner;
 
 public class O8_Fibonacci {
