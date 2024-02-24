@@ -76,6 +76,26 @@ public class O1_Graph {
         vtx2.nbrs.remove(vname1);
     }
 
+    public boolean hasPath(String vname1, String vname2, HashMap<String, Boolean> isVisited ){
+        //direct edge
+        if(containsEdge(vname1, vname2)){
+            return true;
+        }
+
+        isVisited.put(vname1, true);
+
+        Vertex vtx = vrtcs.get(vname1);
+        ArrayList<String> keys = new ArrayList<>(vtx.nbrs.keySet());
+
+        for(String key: keys){
+            if(!isVisited.containsKey(key) && hasPath(key, vname2, isVisited)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -103,29 +123,31 @@ public class O1_Graph {
         graph.addEdge("E", "G", 7);
         graph.addEdge("F", "G", 8);
         
-        graph.display();
+        // graph.display();
 
-        System.out.println(graph.numVertex());
-        System.err.println(graph.numEdges());
+        // System.out.println(graph.numVertex());
+        // System.err.println(graph.numEdges());
 
-        System.out.println("--------------");
+        // System.out.println("--------------");
 
-        System.out.println(graph.containsEdge("A", "C"));
-        System.out.println(graph.containsEdge("E", "F"));
+        // System.out.println(graph.containsEdge("A", "C"));
+        // System.out.println(graph.containsEdge("E", "F"));
 
-        System.out.println("--------------");
+        // System.out.println("--------------");
 
-        graph.removeEdge("A", "B");
-        graph.display();
+        //graph.removeEdge("D", "E");
+        // graph.display();
 
-        graph.removeVertex("F");
-        graph.display();
+        // graph.removeVertex("F");
+        // graph.display();
 
-        graph.addVertex("F");
-        graph.display();
+        // graph.addVertex("F");
+        // graph.display();
 
-        graph.addEdge("A", "F", 10);
-        graph.display();
+        // graph.addEdge("A", "F", 10);
+        // graph.display();
+
+        System.out.println(graph.hasPath("A", "F", new HashMap<>()));
 
     }
 }
