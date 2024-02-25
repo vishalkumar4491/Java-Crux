@@ -178,6 +178,13 @@ public class O1_Graph {
         return true;
     }
 
+    public boolean isTree(String vname){
+        if(isConnected(vname, new HashMap<>()) && !isCyclic(vname, new HashMap<>(), new HashMap<>())){
+            return true;
+        }
+        return false;
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -236,12 +243,14 @@ public class O1_Graph {
         // System.out.println("----------------");
         // graph.DFS("A", new HashMap<>());
 
-        //graph.removeEdge("B", "C");
-        // graph.removeEdge("D", "E");
+        graph.removeEdge("B", "C");
+         graph.removeEdge("G", "E");
 
         // System.out.println(graph.isCyclic("A", new HashMap<>(), new HashMap<>()));
 
-        System.out.println(graph.isConnected("A", new HashMap<>()));
+        //System.out.println(graph.isConnected("A", new HashMap<>()));
+
+        System.out.println(graph.isTree("A"));
 
     }
 }
