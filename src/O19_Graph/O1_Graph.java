@@ -103,12 +103,31 @@ public class O1_Graph {
         while(dq.size() > 0){
             String x = dq.removeFirst();
             Vertex vtx = vrtcs.get(x);
-            System.out.println(x);
+            System.out.print(x + " ");
             ArrayList<String> keys = new ArrayList<>(vtx.nbrs.keySet());
             for(String key: keys){
                 if(!isVisited.containsKey(key)){
                     isVisited.put(key, true);
                     dq.add(key);
+                }
+            }
+        }
+    }
+
+    //same code as bfs just by adding first instead of add last we make bfs to dfs
+    public void DFS(String vname, HashMap<String, Boolean> isVisited){
+        Deque<String> dq = new ArrayDeque<>();
+        dq.add(vname);
+        isVisited.put(vname, true);
+        while(dq.size() > 0){
+            String x = dq.removeFirst();
+            Vertex vtx = vrtcs.get(x);
+            System.out.print(x + " ");
+            ArrayList<String> keys = new ArrayList<>(vtx.nbrs.keySet());
+            for(String key: keys){
+                if(!isVisited.containsKey(key)){
+                    isVisited.put(key, true);
+                    dq.addFirst(key);
                 }
             }
         }
@@ -168,6 +187,9 @@ public class O1_Graph {
         //System.out.println(graph.hasPath("A", "F", new HashMap<>()));
 
         graph.BFS("A", new HashMap<>());
+
+        System.out.println("----------------");
+        graph.DFS("A", new HashMap<>());
 
     }
 }
