@@ -96,6 +96,24 @@ public class O1_Graph {
         return false;
     }
 
+    public void BFS(String vname, HashMap<String, Boolean> isVisited){
+        Deque<String> dq = new ArrayDeque<>();
+        dq.add(vname);
+        isVisited.put(vname, true);
+        while(dq.size() > 0){
+            String x = dq.removeFirst();
+            Vertex vtx = vrtcs.get(x);
+            System.out.println(x);
+            ArrayList<String> keys = new ArrayList<>(vtx.nbrs.keySet());
+            for(String key: keys){
+                if(!isVisited.containsKey(key)){
+                    isVisited.put(key, true);
+                    dq.add(key);
+                }
+            }
+        }
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -147,7 +165,9 @@ public class O1_Graph {
         // graph.addEdge("A", "F", 10);
         // graph.display();
 
-        System.out.println(graph.hasPath("A", "F", new HashMap<>()));
+        //System.out.println(graph.hasPath("A", "F", new HashMap<>()));
+
+        graph.BFS("A", new HashMap<>());
 
     }
 }
