@@ -185,6 +185,39 @@ public class O1_Graph {
         return false;
     }
 
+    public ArrayList<ArrayList<String>> getComponents(String vname, HashMap<String, Boolean> isVisited){
+        ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
+        Deque<String> dq = new ArrayDeque<>();
+        ArrayList<ArrayList<String>> ans = new ArrayList<>();
+        for(String key: keys){
+            if(isVisited.containsKey(key)){
+                continue;
+            }
+            ArrayList<String> all = new ArrayList<>();
+            
+            dq.add(key);
+            all.add(key);
+            while(dq.size() > 0){
+                String x = dq.removeFirst();
+                
+                isVisited.put(x, true);
+                Vertex vtx = vrtcs.get(x);
+                ArrayList<String> nbr = new ArrayList<>(vtx.nbrs.keySet());
+                for(String nb: nbr){
+                    if(!isVisited.containsKey(nb)){
+                        dq.addFirst(nb);
+                        all.add(nb);
+                        isVisited.put(nb, true);
+
+                    }
+                }
+            }
+            ans.add(all);
+        }
+        return ans;
+        
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -202,6 +235,8 @@ public class O1_Graph {
         graph.addVertex("E");
         graph.addVertex("F");
         graph.addVertex("G");
+        graph.addVertex("H");
+        graph.addVertex("I");
 
         graph.addEdge("A", "B", 2);
         graph.addEdge("A", "D", 3);
@@ -211,6 +246,8 @@ public class O1_Graph {
         graph.addEdge("E", "F", 45);
         graph.addEdge("E", "G", 7);
         graph.addEdge("F", "G", 8);
+        // graph.addEdge("H", "I", 8);
+        // graph.addEdge("G", "I", 8);
         
         // graph.display();
 
@@ -243,14 +280,16 @@ public class O1_Graph {
         // System.out.println("----------------");
         // graph.DFS("A", new HashMap<>());
 
-        graph.removeEdge("B", "C");
-         graph.removeEdge("G", "E");
+        // graph.removeEdge("B", "C");
+          graph.removeEdge("D", "E");
 
         // System.out.println(graph.isCyclic("A", new HashMap<>(), new HashMap<>()));
 
         //System.out.println(graph.isConnected("A", new HashMap<>()));
 
-        System.out.println(graph.isTree("A"));
+        // System.out.println(graph.isTree("A"));
+
+        System.out.println(graph.getComponents("A", new HashMap<>()));
 
     }
 }
