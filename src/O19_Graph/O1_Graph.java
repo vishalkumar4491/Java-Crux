@@ -133,6 +133,25 @@ public class O1_Graph {
         }
     }
 
+    public boolean isCyclic(String vname, HashMap<String, Boolean> isVisited, HashMap<String, Boolean> isAlreadyPresent){
+        Deque<String> dq = new ArrayDeque<>();
+        dq.add(vname);
+        while(dq.size() > 0){
+            String x = dq.remove();
+            isVisited.put(x, true);
+            Vertex vtx = vrtcs.get(x);
+            ArrayList<String> keys = new ArrayList<>(vtx.nbrs.keySet());
+            for(String key: keys){
+                if(!isVisited.containsKey(key)){
+                    if(isAlreadyPresent.containsKey(key)) return true;
+                    isAlreadyPresent.put(key, true);
+                    dq.add(key);
+                }
+            }
+        }
+        return false;
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -186,10 +205,15 @@ public class O1_Graph {
 
         //System.out.println(graph.hasPath("A", "F", new HashMap<>()));
 
-        graph.BFS("A", new HashMap<>());
+        // graph.BFS("A", new HashMap<>());
 
-        System.out.println("----------------");
-        graph.DFS("A", new HashMap<>());
+        // System.out.println("----------------");
+        // graph.DFS("A", new HashMap<>());
+
+        //graph.removeEdge("B", "C");
+        graph.removeEdge("F", "G");
+
+        System.out.println(graph.isCyclic("A", new HashMap<>(), new HashMap<>()));
 
     }
 }
