@@ -152,6 +152,32 @@ public class O1_Graph {
         return false;
     }
 
+    public boolean isConnected(String vname, HashMap<String, Boolean> isVisited){
+        ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
+        Deque<String> dq = new ArrayDeque<>();
+        int count = 0;
+        for(String key: keys){
+            if(isVisited.containsKey(key)){
+                continue;
+            }
+            count += 1;
+            dq.add(key);
+            while(dq.size() > 0){
+                String x = dq.removeFirst();
+                isVisited.put(x, true);
+                Vertex vtx = vrtcs.get(x);
+                ArrayList<String> nbr = new ArrayList<>(vtx.nbrs.keySet());
+                for(String nb: nbr){
+                    if(!isVisited.containsKey(nb)){
+                        dq.add(nb);
+                    }
+                }
+            }
+        }
+        if(count >=2) return false;
+        return true;
+    }
+
     public void display(){
         ArrayList<String> keys = new ArrayList<>(vrtcs.keySet());
         for(String key: keys){
@@ -211,9 +237,11 @@ public class O1_Graph {
         // graph.DFS("A", new HashMap<>());
 
         //graph.removeEdge("B", "C");
-        graph.removeEdge("F", "G");
+        // graph.removeEdge("D", "E");
 
-        System.out.println(graph.isCyclic("A", new HashMap<>(), new HashMap<>()));
+        // System.out.println(graph.isCyclic("A", new HashMap<>(), new HashMap<>()));
+
+        System.out.println(graph.isConnected("A", new HashMap<>()));
 
     }
 }
