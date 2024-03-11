@@ -57,6 +57,7 @@ public class O1_Heap {
                     arr.set(rightChildIdx, val);
                     currIdx = rightChildIdx;
             }else{
+                
                 break;
             }
         }
